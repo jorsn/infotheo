@@ -3,7 +3,7 @@
 From mathcomp Require Import all_ssreflect.
 From mathcomp Require boolp.
 Require Import Reals Lra.
-Require Import ssrR Reals_ext Ranalysis_ext logb convex_choice.
+Require Import ssrR Reals_ext Ranalysis_ext logb convex_type.
 
 (** * Results about the Analysis of ln *)
 

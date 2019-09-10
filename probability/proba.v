@@ -567,8 +567,13 @@ End I2FDist.
 Module AddFDist.
 Section def.
 Variables (n m : nat) (d1 : {fdist 'I_n}) (d2 : {fdist 'I_m}) (p : prob).
-Definition f := [ffun i : 'I_(n + m) =>
+(* NB(saikawa): glitch in coq 8.10-beta? *)
+Fail Definition f := [ffun i : 'I_(n + m) =>
   match fintype.split i with inl a => p * d1 a | inr a => p.~ * d2 a end].
+Section f.
+Let f' (i : 'I_(n + m)) := match fintype.split i with inl a => p * d1 a | inr a => p.~ * d2 a end.
+Definition f := Eval hnf in [ffun i : 'I_(n + m) => f' i].
+End f.
 Lemma f0 i : 0 <= f i.
 Proof. rewrite /f ffunE; case: splitP => a _; exact: mulR_ge0. Qed.
 Lemma f1 : \sum_(i < n + m) f i = 1.

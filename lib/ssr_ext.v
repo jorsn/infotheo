@@ -685,8 +685,12 @@ Variable n : nat.
 
 Definition bseq_eqMixin (T : eqType) := Eval hnf in [eqMixin of n.-bseq T by <:].
 Canonical bseq_eqType (T : eqType) := Eval hnf in EqType (n.-bseq T) (bseq_eqMixin T).
+Let bseq_predType' (T : eqType) : predType T.
+Proof. exact (mkPredType (fun t : n.-bseq T => mem_seq t)) ||
+             exact (PredType (fun t : n.-bseq T => mem_seq t)).
+Defined.
 Canonical bseq_predType (T : eqType) :=
-  Eval hnf in mkPredType (fun t : n.-bseq T => mem_seq t). (* TODO: warning *)
+  Eval hnf in bseq_predType'. (* TODO: warning *)
 Definition bseq_choiceMixin (T : choiceType) := [choiceMixin of n.-bseq T by <:].
 Canonical bseq_choiceType (T : choiceType) :=
   Eval hnf in ChoiceType (n.-bseq T) (bseq_choiceMixin T).

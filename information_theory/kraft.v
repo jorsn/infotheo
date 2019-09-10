@@ -299,7 +299,12 @@ Record code_set := CodeSet {
 }.
 
 Definition mem_code_set (C : code_set) := fun x => x \in codeset C.
-Canonical code_set_predType := Eval hnf in @mkPredType _ code_set mem_code_set.
+Definition code_set_predType' : predType (seq_eqType T).
+Proof.
+exact (@mkPredType _ code_set mem_code_set) ||
+exact (@PredType _ code_set mem_code_set).
+Defined.
+Canonical code_set_predType := Eval hnf in code_set_predType'.
 
 Definition sort_sizes (C : code_set) : seq nat := sort leq (map size C).
 

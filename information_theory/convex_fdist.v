@@ -3,7 +3,7 @@ From mathcomp Require Import all_ssreflect ssralg fingroup finalg matrix.
 From mathcomp Require boolp.
 Require Import Reals Ranalysis_ext Lra.
 Require Import ssrR Reals_ext logb ssr_ext ssralg_ext bigop_ext Rbigop proba.
-Require Import entropy proba cproba convex_choice binary_entropy_function.
+Require Import entropy proba cproba convex_type binary_entropy_function.
 Require Import log_sum divergence.
 
 Set Implicit Arguments.
@@ -84,7 +84,7 @@ Qed.
 
 Section prop.
 Variable (A : finType).
-Let T := choice_of_Type (T A).
+Let T := T A.
 Implicit Types p q : prob.
 Lemma avg1 (x y : T) : avg (`Pr 1) x y = x.
 Proof. rewrite /avg; case x => x0 H /=; exact/eq_sig_irrelevant/conv1. Qed.
@@ -411,7 +411,7 @@ Variables (A B : finType) (P : fdist A).
 Local Open Scope divergence_scope.
 
 Lemma mutual_information_convex :
-  convex_function (fun Q : depfun_choiceType (fun _ : A => fdist_convType B) =>
+  convex_function (fun Q : A -> fdist_convType B =>
     MutualInfo.mi (CFDist.make_joint P Q)).
 Proof.
 move=> p1yx p2yx t.

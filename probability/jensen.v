@@ -3,7 +3,7 @@ From mathcomp Require Import all_ssreflect ssralg fingroup finalg matrix.
 From mathcomp Require Import boolp.
 Require Import Reals.
 Require Import ssrR Reals_ext ssr_ext ssralg_ext logb Rbigop.
-Require Import proba convex_choice.
+Require Import proba convex_type.
 
 Set Implicit Arguments.
 Unset Strict Implicit.
@@ -60,7 +60,7 @@ have /IH {IH}[IH HDd] : #|fdist_supp d| = n.
   by rewrite D1FDist.card_fdist_supp // cardA.
 split; last first.
   move/asboolP: (convex_setP D) => /(_ (r b) (\sum_(a in fdist_supp d) d a * r a) (probfdist X b)).
-  by rewrite classical_sets.in_setE; apply; rewrite -classical_sets.in_setE.
+  by rewrite classical_sets.in_setE; apply; rewrite -classical_sets.in_setE // HDd inE asboolE.
 move/leR_trans: (convex_f (probfdist X b) (HDr b) HDd); apply => /=.
 by rewrite leR_add2l; apply leR_wpmul2l => //; apply/onem_ge0.
 Qed.
