@@ -51,7 +51,7 @@
               };
 
               meta = {
-                inherit (self) description;
+                description = "A Coq formalization of information theory and linear error correcting codes";
                 license = licenses.lgpl2Plus;
               };
             }
